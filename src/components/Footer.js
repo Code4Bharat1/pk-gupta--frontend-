@@ -2,38 +2,77 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import API from '@/utils/api';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, FileDown } from 'lucide-react';
 
 export default function Footer() {
   const [settings, setSettings] = useState(null);
+  const [footerContent, setFooterContent] = useState({
+    aboutText: 'Leading travel booking and car rental platform across India. Providing clean rides, verified drivers, and transparent pricing models since 2025.',
+    brochureText: 'Download Brochure',
+    brochureUrl: 'uploads/brochure.pdf',
+    links: [
+      { label: 'Home', url: '/' },
+      { label: 'Rent a Car', url: '/cars' },
+      { label: 'FAQ', url: '/#faq' },
+      { label: 'Testimonials', url: '/#testimonials' }
+    ],
+    policies: [
+      'Flexible 24-hour cancellations',
+      'No hidden service fees',
+      'Verified chauffeur assignments',
+      'Local travel coverages'
+    ]
+  });
 
   useEffect(() => {
+    // Load general site settings
     API.get('/settings')
       .then((res) => {
         if (res.data && res.data.success) {
           setSettings(res.data.data);
         }
       })
-      .catch(() => {
-        // use default fallback
-      });
+      .catch(() => {});
+
+    // Load dynamic footer content
+    API.get('/cms/footer')
+      .then((res) => {
+        if (res.data && res.data.success && res.data.data.content) {
+          setFooterContent(res.data.data.content);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const companyName = settings?.companyName || 'PK Gupta Tour & Travels';
-  const email = settings?.contactDetails?.email || 'info@travelrental.com';
-  const phone = settings?.contactDetails?.phone || '+1234567890';
-  const address = settings?.contactDetails?.address || '123 Travel Lane, Delhi, India';
+  const email = settings?.contactDetails?.email || 'info@pkguptatravels.com';
+  const phone = settings?.contactDetails?.phone || '9828252470';
+  const address = settings?.contactDetails?.address || 'Jaipur, Rajasthan, India';
 
   return (
     <footer className="bg-accent text-gray-300 pt-12 pb-6 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         {/* About */}
-        <div>
-          <h3 className="text-white font-bold text-lg mb-4">{companyName}</h3>
-          <p className="text-sm text-gray-400 mb-4 leading-relaxed">
-            Leading travel booking and car rental platform across India. Providing clean rides, verified drivers, and transparent pricing models since 2014.
+        <div className="space-y-4">
+          <h3 className="text-white font-bold text-lg">{companyName}</h3>
+          <p className="text-sm text-gray-400 leading-relaxed">
+            {footerContent.aboutText}
           </p>
-          <div className="flex space-x-3">
+          
+          {/* Brochure Download CTA */}
+          {/* {footerContent.brochureUrl && (
+            <a 
+              href={`http://localhost:5000/${footerContent.brochureUrl}`} 
+              target="_blank" 
+              rel="noreferrer"
+              className="inline-flex items-center space-x-2 text-xs font-bold text-primary hover:text-blue-400 transition-colors bg-white/5 border border-white/10 px-3.5 py-2 rounded-lg hover:bg-white/10 cursor-pointer"
+            >
+              <FileDown className="w-4 h-4" />
+              <span>{footerContent.brochureText || 'Download Brochure'}</span>
+            </a>
+          )} */}
+
+          <div className="flex space-x-3 pt-2">
             {settings?.socialLinks?.facebook && (
               <a href={settings.socialLinks.facebook} className="text-gray-400 hover:text-white transition-colors flex items-center justify-center" target="_blank" rel="noreferrer">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
@@ -61,10 +100,13 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-            <li><Link href="/cars" className="hover:text-white transition-colors">Rent a Car</Link></li>
-            <li><Link href="/#faq" className="hover:text-white transition-colors">FAQ</Link></li>
-            <li><Link href="/#testimonials" className="hover:text-white transition-colors">Testimonials</Link></li>
+            {footerContent.links?.map((link, idx) => (
+              <li key={idx}>
+                <Link href={link.url} className="hover:text-white transition-colors">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -72,10 +114,9 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4">Policies & Rules</h4>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li>Flexible 24-hour cancellations</li>
-            <li>No hidden service fees</li>
-            <li>Verified chauffeur assignments</li>
-            <li>Local travel coverages</li>
+            {footerContent.policies?.map((policy, idx) => (
+              <li key={idx}>{policy}</li>
+            ))}
           </ul>
         </div>
 

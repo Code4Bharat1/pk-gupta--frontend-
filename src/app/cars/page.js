@@ -92,7 +92,7 @@ function CarsContent() {
           <form onSubmit={handleFilterSubmit} className="space-y-4">
             {/* Search Input */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Make or Model</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Car Name or Brand</label>
               <div className="relative">
                 <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                 <input
@@ -107,7 +107,7 @@ function CarsContent() {
 
             {/* Category Select */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Vehicle Class</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Car Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -123,7 +123,7 @@ function CarsContent() {
 
             {/* Price Range */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Price Range (₹ / Day)</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Daily Rental Budget</label>
               <div className="grid grid-cols-2 gap-2">
                 <input
                   type="number"
