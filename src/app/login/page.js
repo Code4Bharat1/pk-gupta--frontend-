@@ -223,7 +223,7 @@ export default function Login() {
             </form>
 
             {/* Seed account details */}
-            {isLogin && (
+            {/* {isLogin && (
               <div className="mt-8 pt-6 border-t border-gray-200/60 space-y-3">
                 <div className="flex items-center space-x-1.5 justify-center bg-amber-50 py-1.5 px-3 rounded-lg border border-amber-100 text-amber-800 w-fit mx-auto">
                   <ShieldCheck className="w-4 h-4 text-amber-600" />
@@ -234,7 +234,7 @@ export default function Login() {
                   <p>Password: <span className="text-accent font-bold">AdminSecurePassword123!</span></p>
                 </div>
               </div>
-            )}
+            )} */}
 
           </div>
         </div>
