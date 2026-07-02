@@ -70,6 +70,7 @@ export default function AdminConsole() {
   const [cmsLoading, setCmsLoading] = useState(false);
   const [selectedCmsKey, setSelectedCmsKey] = useState('hero');
   const [cmsForm, setCmsForm] = useState({ title: '', content: {}, enabled: true, order: 0, seo: { metaTitle: '', metaDescription: '' } });
+  const [cmsSubTab, setCmsSubTab] = useState('content'); // 'content' or 'seo'
   
   // Section creation states
   const [addSectionOpen, setAddSectionOpen] = useState(false);
@@ -1573,16 +1574,44 @@ export default function AdminConsole() {
                       <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-100 px-2 py-1 rounded">Key: {selectedCmsKey}</span>
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Administrative Title</label>
-                      <input 
-                        type="text" 
-                        required
-                        value={cmsForm.title}
-                        onChange={(e) => setCmsForm({ ...cmsForm, title: e.target.value })}
-                        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-semibold"
-                      />
+                    {/* Sub Tab Navigation */}
+                    <div className="flex space-x-2 border-b border-gray-100 pb-2">
+                      <button
+                        type="button"
+                        onClick={() => setCmsSubTab('content')}
+                        className={`px-4 py-2 text-xs font-bold rounded-lg cursor-pointer transition-colors ${
+                          cmsSubTab === 'content'
+                            ? 'bg-primary/10 text-primary'
+                            : 'text-gray-400 hover:text-accent hover:bg-gray-50'
+                        }`}
+                      >
+                        📝 Section Content
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setCmsSubTab('seo')}
+                        className={`px-4 py-2 text-xs font-bold rounded-lg cursor-pointer transition-colors ${
+                          cmsSubTab === 'seo'
+                            ? 'bg-primary/10 text-primary'
+                            : 'text-gray-400 hover:text-accent hover:bg-gray-50'
+                        }`}
+                      >
+                        🔍 SEO & Search Settings
+                      </button>
                     </div>
+
+                    {cmsSubTab === 'content' && (
+                      <div className="space-y-6">
+                        <div>
+                          <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Administrative Title</label>
+                          <input 
+                            type="text" 
+                            required
+                            value={cmsForm.title}
+                            onChange={(e) => setCmsForm({ ...cmsForm, title: e.target.value })}
+                            className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-semibold"
+                          />
+                        </div>
 
                     {/* DYNAMIC FORM RENDERERS */}
                     
@@ -2320,19 +2349,23 @@ export default function AdminConsole() {
                         </div>
                         <div className="space-y-4">
                           {(cmsForm.content.questions || []).map((faqItem, idx) => (
-                            <div key={idx} className="p-4 bg-gray-50 rounded-xl border border-gray-200 relative space-y-3">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const newQuestions = cmsForm.content.questions.filter((_, i) => i !== idx);
-                                  setCmsForm({ ...cmsForm, content: { ...cmsForm.content, questions: newQuestions } });
-                                }}
-                                className="absolute top-2 right-2 p-1.5 text-red-500 hover:bg-red-50 rounded cursor-pointer"
-                              >
-                                <Trash className="w-4 h-4" />
-                              </button>
+                            <div key={idx} className="p-4 bg-white rounded-xl border border-gray-200 shadow-sm relative space-y-3 hover:border-primary/40 hover:shadow transition-all duration-200">
+                              <div className="flex items-center justify-between border-b border-gray-150 pb-2">
+                                <span className="text-[10px] font-bold text-primary bg-primary/5 px-2 py-0.5 rounded">FAQ #{idx + 1}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newQuestions = cmsForm.content.questions.filter((_, i) => i !== idx);
+                                    setCmsForm({ ...cmsForm, content: { ...cmsForm.content, questions: newQuestions } });
+                                  }}
+                                  className="text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition-colors cursor-pointer"
+                                  title="Delete FAQ"
+                                >
+                                  <Trash className="w-4 h-4" />
+                                </button>
+                              </div>
                               <div>
-                                <label className="block text-[9px] font-bold text-gray-400 mb-1">Question</label>
+                                <label className="block text-[9px] font-bold text-gray-400 mb-1 uppercase">Question</label>
                                 <input 
                                   type="text" 
                                   required
@@ -2342,11 +2375,11 @@ export default function AdminConsole() {
                                     newQuestions[idx].q = e.target.value;
                                     setCmsForm({ ...cmsForm, content: { ...cmsForm.content, questions: newQuestions } });
                                   }}
-                                  className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs focus:outline-none text-accent font-bold"
+                                  className="w-full px-2.5 py-1.5 bg-gray-50 border border-gray-200 rounded text-xs focus:outline-none focus:border-primary text-accent font-bold"
                                 />
                               </div>
                               <div>
-                                <label className="block text-[9px] font-bold text-gray-400 mb-1">Answer</label>
+                                <label className="block text-[9px] font-bold text-gray-400 mb-1 uppercase">Answer</label>
                                 <textarea 
                                   rows={2}
                                   required
@@ -2356,7 +2389,7 @@ export default function AdminConsole() {
                                     newQuestions[idx].a = e.target.value;
                                     setCmsForm({ ...cmsForm, content: { ...cmsForm.content, questions: newQuestions } });
                                   }}
-                                  className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs focus:outline-none text-accent"
+                                  className="w-full px-2.5 py-1.5 bg-gray-50 border border-gray-200 rounded text-xs focus:outline-none focus:border-primary text-accent leading-relaxed"
                                 />
                               </div>
                             </div>
@@ -2486,7 +2519,7 @@ export default function AdminConsole() {
                               type="button"
                               onClick={() => {
                                 const newItems = [...(cmsForm.content.items || [])];
-                                newItems.push({ title: '', desc: '', date: new Date().toISOString().split('T')[0], image: '' });
+                                newItems.push({ title: '', desc: '', date: new Date().toISOString().split('T')[0], image: '', slug: '', readTime: '', seoTitle: '', seoDesc: '' });
                                 setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
                               }}
                               className="bg-primary hover:bg-blue-700 text-white font-bold py-1.5 px-3 rounded-lg text-[10px] uppercase tracking-wider flex items-center space-x-1 cursor-pointer"
@@ -2496,23 +2529,27 @@ export default function AdminConsole() {
                             </button>
                           </div>
 
-                          <div className="space-y-4">
+                          <div className="space-y-6">
                             {(cmsForm.content.items || []).map((blog, idx) => (
-                              <div key={idx} className="p-4 bg-gray-50 rounded-xl border border-gray-200 relative space-y-3">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const newItems = cmsForm.content.items.filter((_, i) => i !== idx);
-                                    setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
-                                  }}
-                                  className="absolute top-2 right-2 p-1.5 text-red-500 hover:bg-red-50 rounded cursor-pointer"
-                                >
-                                  <Trash className="w-4 h-4" />
-                                </button>
+                              <div key={idx} className="p-5 bg-white rounded-xl border border-gray-200 shadow-sm relative space-y-4 hover:border-primary/40 hover:shadow transition-all duration-200">
+                                <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                                  <span className="text-xs font-bold text-primary bg-primary/5 px-2.5 py-1 rounded-md">Article #{idx + 1}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const newItems = cmsForm.content.items.filter((_, i) => i !== idx);
+                                      setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
+                                    }}
+                                    className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg cursor-pointer transition-colors"
+                                    title="Delete Article"
+                                  >
+                                    <Trash className="w-4 h-4" />
+                                  </button>
+                                </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                   <div>
-                                    <label className="block text-[9px] font-bold text-gray-400 mb-1">Blog Title</label>
+                                    <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Blog Title</label>
                                     <input 
                                       type="text" 
                                       value={blog.title || ''}
@@ -2521,11 +2558,11 @@ export default function AdminConsole() {
                                         newItems[idx].title = e.target.value;
                                         setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
                                       }}
-                                      className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs focus:outline-none text-accent font-bold"
+                                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-bold"
                                     />
                                   </div>
                                   <div>
-                                    <label className="block text-[9px] font-bold text-gray-400 mb-1">Date</label>
+                                    <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Date</label>
                                     <input 
                                       type="date" 
                                       value={blog.date || ''}
@@ -2534,50 +2571,115 @@ export default function AdminConsole() {
                                         newItems[idx].date = e.target.value;
                                         setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
                                       }}
-                                      className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs focus:outline-none text-accent font-semibold"
+                                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-semibold"
                                     />
                                   </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                  <div className="sm:col-span-2">
-                                    <label className="block text-[9px] font-bold text-gray-400 mb-1">Blog Image File</label>
-                                    <div className="flex items-center space-x-2">
-                                      <input 
-                                        type="text"
-                                        readOnly
-                                        value={blog.image || ''}
-                                        className="flex-1 px-3 py-1.5 bg-gray-150 border border-gray-200 rounded text-xs text-accent font-mono"
-                                      />
-                                      <label className="bg-primary hover:bg-blue-700 text-white text-xs font-bold py-1.5 px-3 rounded cursor-pointer whitespace-nowrap">
-                                        <Upload className="w-3 h-3 inline mr-1" />
-                                        Upload
-                                        <input 
-                                          type="file" 
-                                          className="hidden"
-                                          onChange={(e) => handleInlineFileUpload(e, (path) => {
-                                            const newItems = [...cmsForm.content.items];
-                                            newItems[idx].image = path;
-                                            setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
-                                          })}
-                                        />
-                                      </label>
-                                    </div>
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">URL Slug (e.g. jaipur-travel-guide)</label>
+                                    <input 
+                                      type="text" 
+                                      value={blog.slug || ''}
+                                      onChange={(e) => {
+                                        const newItems = [...cmsForm.content.items];
+                                        newItems[idx].slug = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
+                                        setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
+                                      }}
+                                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-mono"
+                                      placeholder="custom-url-slug"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Estimated Read Time</label>
+                                    <input 
+                                      type="text" 
+                                      value={blog.readTime || ''}
+                                      onChange={(e) => {
+                                        const newItems = [...cmsForm.content.items];
+                                        newItems[idx].readTime = e.target.value;
+                                        setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
+                                      }}
+                                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                                      placeholder="e.g. 5 min read"
+                                    />
                                   </div>
                                 </div>
 
                                 <div>
-                                  <label className="block text-[9px] font-bold text-gray-400 mb-1">Blog Text Summary</label>
+                                  <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Blog Image File</label>
+                                  <div className="flex items-center space-x-2">
+                                    <input 
+                                      type="text"
+                                      readOnly
+                                      value={blog.image || ''}
+                                      className="flex-1 px-3 py-2 bg-gray-150 border border-gray-200 rounded-lg text-xs text-accent font-mono"
+                                    />
+                                    <label className="bg-primary hover:bg-blue-700 text-white text-xs font-bold py-2 px-3.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors">
+                                      <Upload className="w-3.5 h-3.5 inline mr-1" />
+                                      Upload Image
+                                      <input 
+                                        type="file" 
+                                        className="hidden"
+                                        onChange={(e) => handleInlineFileUpload(e, (path) => {
+                                          const newItems = [...cmsForm.content.items];
+                                          newItems[idx].image = path;
+                                          setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
+                                        })}
+                                      />
+                                    </label>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Blog Text Content</label>
                                   <textarea 
-                                    rows={2}
+                                    rows={4}
                                     value={blog.desc || ''}
                                     onChange={(e) => {
                                       const newItems = [...cmsForm.content.items];
                                       newItems[idx].desc = e.target.value;
                                       setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
                                     }}
-                                    className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs focus:outline-none text-accent"
+                                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent leading-relaxed"
+                                    placeholder="Write the full blog article or description here..."
                                   />
+                                </div>
+
+                                {/* Article SEO Sub-Section */}
+                                <div className="bg-gray-50 p-4 rounded-xl border border-gray-150 space-y-3">
+                                  <h4 className="text-[10px] font-bold text-primary uppercase tracking-wider">Article SEO Meta Configurations</h4>
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                      <label className="block text-[9px] font-bold text-gray-400 mb-1 uppercase">SEO Title Override</label>
+                                      <input 
+                                        type="text" 
+                                        value={blog.seoTitle || ''}
+                                        onChange={(e) => {
+                                          const newItems = [...cmsForm.content.items];
+                                          newItems[idx].seoTitle = e.target.value;
+                                          setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
+                                        }}
+                                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs focus:outline-none text-accent"
+                                        placeholder="Defaults to Blog Title"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="block text-[9px] font-bold text-gray-400 mb-1 uppercase">SEO Meta Description</label>
+                                      <input 
+                                        type="text" 
+                                        value={blog.seoDesc || ''}
+                                        onChange={(e) => {
+                                          const newItems = [...cmsForm.content.items];
+                                          newItems[idx].seoDesc = e.target.value;
+                                          setCmsForm({ ...cmsForm, content: { ...cmsForm.content, items: newItems } });
+                                        }}
+                                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs focus:outline-none text-accent"
+                                        placeholder="Brief SEO summary of article"
+                                      />
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             ))}
@@ -2767,36 +2869,41 @@ export default function AdminConsole() {
                       </div>
                     )}
 
+                      </div>
+                    )}
+ 
                     {/* SEO fields */}
-                    <div className="space-y-4 border-t border-gray-100 pt-4">
-                      <h3 className="font-bold text-sm text-accent">Search Engine Optimization (SEO)</h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-xs font-semibold text-gray-500 mb-1.5">Meta Title</label>
-                          <input 
-                            type="text"
-                            value={cmsForm.seo.metaTitle || ''}
-                            onChange={(e) => setCmsForm({
-                              ...cmsForm,
-                              seo: { ...cmsForm.seo, metaTitle: e.target.value }
-                            })}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs font-semibold text-gray-500 mb-1.5">Meta Description</label>
-                          <input 
-                            type="text"
-                            value={cmsForm.seo.metaDescription || ''}
-                            onChange={(e) => setCmsForm({
-                              ...cmsForm,
-                              seo: { ...cmsForm.seo, metaDescription: e.target.value }
-                            })}
-                            className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
-                          />
+                    {cmsSubTab === 'seo' && (
+                      <div className="space-y-4 border-t border-gray-100 pt-4">
+                        <h3 className="font-bold text-sm text-accent">Search Engine Optimization (SEO)</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-xs font-semibold text-gray-500 mb-1.5">Meta Title</label>
+                            <input 
+                              type="text"
+                              value={cmsForm.seo?.metaTitle || ''}
+                              onChange={(e) => setCmsForm({
+                                ...cmsForm,
+                                seo: { ...(cmsForm.seo || {}), metaTitle: e.target.value }
+                              })}
+                              className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-xs font-semibold text-gray-500 mb-1.5">Meta Description</label>
+                            <input 
+                              type="text"
+                              value={cmsForm.seo?.metaDescription || ''}
+                              onChange={(e) => setCmsForm({
+                                ...cmsForm,
+                                seo: { ...(cmsForm.seo || {}), metaDescription: e.target.value }
+                              })}
+                              className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
 
                     <button
                       type="submit"
@@ -2858,6 +2965,155 @@ export default function AdminConsole() {
                             className="text-xs text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer w-full"
                           />
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Contact Details */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-gray-100 pb-4">
+                  <div>
+                    <h3 className="font-bold text-sm text-accent">Contact Details</h3>
+                    <p className="text-[10px] text-gray-400 mt-0.5">Configure public support contact info.</p>
+                  </div>
+                  <div className="sm:col-span-2 space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Email Address</label>
+                        <input 
+                          type="email" 
+                          required
+                          value={settingsForm.contactDetails?.email || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            contactDetails: { ...settingsForm.contactDetails, email: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Phone Number</label>
+                        <input 
+                          type="text" 
+                          required
+                          value={settingsForm.contactDetails?.phone || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            contactDetails: { ...settingsForm.contactDetails, phone: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1.5">Office / Base Address</label>
+                      <input 
+                        type="text" 
+                        required
+                        value={settingsForm.contactDetails?.address || ''}
+                        onChange={(e) => setSettingsForm({ 
+                          ...settingsForm, 
+                          contactDetails: { ...settingsForm.contactDetails, address: e.target.value } 
+                        })}
+                        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Social Media Links */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-gray-100 pb-4">
+                  <div>
+                    <h3 className="font-bold text-sm text-accent">Social Media Links</h3>
+                    <p className="text-[10px] text-gray-400 mt-0.5">Set up corporate social network links (must be valid URLs).</p>
+                  </div>
+                  <div className="sm:col-span-2 space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Facebook URL (e.g. https://facebook.com/...)</label>
+                        <input 
+                          type="url" 
+                          value={settingsForm.socialLinks?.facebook || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            socialLinks: { ...settingsForm.socialLinks, facebook: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-mono"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Instagram URL (e.g. https://instagram.com/...)</label>
+                        <input 
+                          type="url" 
+                          value={settingsForm.socialLinks?.instagram || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            socialLinks: { ...settingsForm.socialLinks, instagram: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-mono"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Twitter / X URL (e.g. https://x.com/...)</label>
+                        <input 
+                          type="url" 
+                          value={settingsForm.socialLinks?.twitter || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            socialLinks: { ...settingsForm.socialLinks, twitter: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-mono"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">LinkedIn URL (e.g. https://linkedin.com/...)</label>
+                        <input 
+                          type="url" 
+                          value={settingsForm.socialLinks?.linkedin || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            socialLinks: { ...settingsForm.socialLinks, linkedin: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-mono"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Default SEO Settings */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-gray-100 pb-4">
+                  <div>
+                    <h3 className="font-bold text-sm text-accent">Default SEO Configurations</h3>
+                    <p className="text-[10px] text-gray-400 mt-0.5">Manage default meta details for search engines.</p>
+                  </div>
+                  <div className="sm:col-span-2 space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Default Meta Title</label>
+                        <input 
+                          type="text" 
+                          value={settingsForm.seo?.defaultMetaTitle || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            seo: { ...settingsForm.seo, defaultMetaTitle: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Default Meta Description</label>
+                        <input 
+                          type="text" 
+                          value={settingsForm.seo?.defaultMetaDescription || ''}
+                          onChange={(e) => setSettingsForm({ 
+                            ...settingsForm, 
+                            seo: { ...settingsForm.seo, defaultMetaDescription: e.target.value } 
+                          })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
                       </div>
                     </div>
                   </div>

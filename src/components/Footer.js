@@ -13,8 +13,10 @@ export default function Footer() {
     links: [
       { label: 'Home', url: '/' },
       { label: 'Rent a Car', url: '/cars' },
-      { label: 'FAQ', url: '/#faq' },
-      { label: 'Testimonials', url: '/#testimonials' }
+      { label: 'Services', url: '/services' },
+      { label: 'Blogs', url: '/blogs' },
+      { label: 'FAQ', url: '/faq' },
+      { label: 'Testimonials', url: '/testimonials' }
     ],
     policies: [
       'Flexible 24-hour cancellations',

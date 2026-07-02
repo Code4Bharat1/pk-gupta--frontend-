@@ -13,8 +13,10 @@ export default function Navbar() {
     links: [
       { label: 'Home', url: '/' },
       { label: 'Cars', url: '/cars' },
-      { label: 'FAQ', url: '/#faq' },
-      { label: 'Testimonials', url: '/#testimonials' }
+      { label: 'Services', url: '/services' },
+      { label: 'Blogs', url: '/blogs' },
+      { label: 'FAQ', url: '/faq' },
+      { label: 'Testimonials', url: '/testimonials' }
     ]
   });
   

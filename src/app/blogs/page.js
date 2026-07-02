@@ -77,7 +77,7 @@ export default function BlogsPage() {
                   <div className="px-6 pb-6 pt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-400 font-semibold">
                     <span className="flex items-center space-x-1">
                       <Clock className="w-3.5 h-3.5" />
-                      <span>5 min read</span>
+                      <span>{blog.readTime || '5 min read'}</span>
                     </span>
                     <button 
                       type="button"
@@ -118,7 +118,7 @@ export default function BlogsPage() {
                 <span>{selectedBlog.date}</span>
                 <span className="mx-1">•</span>
                 <Clock className="w-3.5 h-3.5" />
-                <span>5 min read</span>
+                <span>{selectedBlog.readTime || '5 min read'}</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-accent leading-tight">{selectedBlog.title}</h2>
               <div className="border-b border-gray-100"></div>
