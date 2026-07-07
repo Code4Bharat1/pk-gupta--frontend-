@@ -193,11 +193,16 @@ export default function Dashboard() {
                         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-3">
                           <div>
                             <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
-                              {booking.bookingType} booking
+                              {isCar ? `${booking.tripType || 'outstation'} booking` : `${booking.bookingType} booking`}
                             </span>
                             <h4 className="font-bold text-base text-accent mt-1">
                               {isCar ? `${booking.car?.make} ${booking.car?.model}` : booking.packageDetails?.packageName}
                             </h4>
+                            {isCar && (
+                              <p className="text-[11px] text-primary font-semibold mt-1">
+                                Route: {booking.fromCity || 'Jaipur'} to {booking.toCity || 'Local'} {booking.distance ? `(${booking.distance} KM)` : ''}
+                              </p>
+                            )}
                           </div>
 
                           <div className="flex items-center space-x-2 text-xs">
@@ -222,22 +227,29 @@ export default function Dashboard() {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 text-xs border-b border-gray-100 pb-3">
                           <div>
-                            <p className="text-gray-400 font-medium">Pickup Date</p>
+                            <p className="text-gray-400 font-semibold">Pickup Date</p>
                             <p className="font-bold text-accent mt-1">{new Date(booking.startDate).toLocaleDateString()}</p>
                           </div>
                           <div>
-                            <p className="text-gray-400 font-medium">Return Date</p>
+                            <p className="text-gray-400 font-semibold">Return Date</p>
                             <p className="font-bold text-accent mt-1">{new Date(booking.endDate).toLocaleDateString()}</p>
                           </div>
                           <div>
-                            <p className="text-gray-400 font-medium">Driver Status</p>
+                            <p className="text-gray-400 font-semibold">Driver Status</p>
                             <p className="font-bold text-accent mt-1">{booking.driverAssigned || 'No Driver Assigned'}</p>
                           </div>
                           <div>
-                            <p className="text-gray-400 font-medium">Total Amount</p>
-                            <p className="font-bold text-secondary text-sm mt-0.5">₹{booking.totalAmount}</p>
+                            <p className="text-gray-400 font-semibold">Total Cost</p>
+                            <p className="font-bold text-accent text-sm mt-0.5">₹{booking.totalAmount}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-400 font-semibold">Advance Paid</p>
+                            <p className="font-bold text-secondary text-sm mt-0.5">₹{booking.advancePaid || 0}</p>
+                            {booking.transactionId && (
+                              <p className="text-[10px] text-gray-400 mt-0.5 tracking-tighter">Ref: {booking.transactionId}</p>
+                            )}
                           </div>
                         </div>
 

@@ -34,7 +34,10 @@ export default function AdminConsole() {
   const [carModalOpen, setCarModalOpen] = useState(false);
   const [editingCar, setEditingCar] = useState(null);
   const [carForm, setCarForm] = useState({
-    make: '', model: '', year: new Date().getFullYear(), category: 'SUV', pricePerDay: 2000, features: '', status: 'available', isEnabled: true
+    make: '', model: '', year: new Date().getFullYear(), category: 'SUV', pricePerDay: 2000,
+    pricePerKmOneWay: 12, pricePerKmRoundTrip: 10, minBillingDistance: 250, driverAllowance: 300,
+    priceLocalPkg: 2000, priceAirportTransfer: 1500, tollParkingPolicy: 'Toll, parking, and state tax will be charged extra as per actual receipts.',
+    features: '', status: 'available', isEnabled: true
   });
   const [carFiles, setCarFiles] = useState([]);
 
@@ -83,7 +86,7 @@ export default function AdminConsole() {
   const [settingsForm, setSettingsForm] = useState({
     companyName: '', logo: '', contactDetails: { email: '', phone: '', address: '' },
     socialLinks: { facebook: '', instagram: '', twitter: '', linkedin: '' },
-    paymentGateway: { stripePublicKey: '', stripeSecretKey: '' },
+    paymentGateway: { stripePublicKey: '', stripeSecretKey: '', upiId: '', advancePaymentPercent: 20 },
     emailSettings: { smtpHost: '', smtpPort: 587, smtpUser: '', smtpPass: '' },
     smsSettings: { provider: 'twilio', apiKey: '' },
     seo: { defaultMetaTitle: '', defaultMetaDescription: '' }
@@ -209,6 +212,13 @@ export default function AdminConsole() {
     formData.append('year', carForm.year);
     formData.append('category', carForm.category);
     formData.append('pricePerDay', carForm.pricePerDay);
+    formData.append('pricePerKmOneWay', carForm.pricePerKmOneWay);
+    formData.append('pricePerKmRoundTrip', carForm.pricePerKmRoundTrip);
+    formData.append('minBillingDistance', carForm.minBillingDistance);
+    formData.append('driverAllowance', carForm.driverAllowance);
+    formData.append('priceLocalPkg', carForm.priceLocalPkg);
+    formData.append('priceAirportTransfer', carForm.priceAirportTransfer);
+    formData.append('tollParkingPolicy', carForm.tollParkingPolicy);
     formData.append('status', carForm.status);
     formData.append('isEnabled', carForm.isEnabled);
 
@@ -236,7 +246,12 @@ export default function AdminConsole() {
         setCarModalOpen(false);
         setEditingCar(null);
         setCarFiles([]);
-        setCarForm({ make: '', model: '', year: 2026, category: 'SUV', pricePerDay: 2000, features: '', status: 'available', isEnabled: true });
+        setCarForm({
+          make: '', model: '', year: 2026, category: 'SUV', pricePerDay: 2000,
+          pricePerKmOneWay: 12, pricePerKmRoundTrip: 10, minBillingDistance: 250, driverAllowance: 300,
+          priceLocalPkg: 2000, priceAirportTransfer: 1500, tollParkingPolicy: 'Toll, parking, and state tax will be charged extra as per actual receipts.',
+          features: '', status: 'available', isEnabled: true
+        });
         fetchCars();
       }
     } catch (err) {
@@ -251,7 +266,14 @@ export default function AdminConsole() {
       model: car.model,
       year: car.year,
       category: car.category,
-      pricePerDay: car.pricePerDay,
+      pricePerDay: car.pricePerDay || 2000,
+      pricePerKmOneWay: car.pricePerKmOneWay || 12,
+      pricePerKmRoundTrip: car.pricePerKmRoundTrip || 10,
+      minBillingDistance: car.minBillingDistance || 250,
+      driverAllowance: car.driverAllowance || 300,
+      priceLocalPkg: car.priceLocalPkg || 2000,
+      priceAirportTransfer: car.priceAirportTransfer || 1500,
+      tollParkingPolicy: car.tollParkingPolicy || 'Toll, parking, and state tax will be charged extra as per actual receipts.',
       features: car.features.join(', '),
       status: car.status,
       isEnabled: car.isEnabled
@@ -560,7 +582,7 @@ export default function AdminConsole() {
           logo: data.logo || '',
           contactDetails: data.contactDetails || { email: '', phone: '', address: '' },
           socialLinks: data.socialLinks || { facebook: '', instagram: '', twitter: '', linkedin: '' },
-          paymentGateway: data.paymentGateway || { stripePublicKey: '', stripeSecretKey: '' },
+          paymentGateway: data.paymentGateway || { stripePublicKey: '', stripeSecretKey: '', upiId: '', advancePaymentPercent: 20 },
           emailSettings: data.emailSettings || { smtpHost: '', smtpPort: 587, smtpUser: '', smtpPass: '' },
           smsSettings: data.smsSettings || { provider: 'twilio', apiKey: '' },
           seo: data.seo || { defaultMetaTitle: '', defaultMetaDescription: '' }
@@ -1194,7 +1216,7 @@ export default function AdminConsole() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                     <div className="grid grid-cols-3 gap-4">
                       <div>
                         <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Price Per Day (₹)</label>
                         <input 
@@ -1202,6 +1224,49 @@ export default function AdminConsole() {
                           required
                           value={carForm.pricePerDay}
                           onChange={(e) => setCarForm({ ...carForm, pricePerDay: Number(e.target.value) })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">One-Way / KM (₹)</label>
+                        <input 
+                          type="number" 
+                          required
+                          value={carForm.pricePerKmOneWay}
+                          onChange={(e) => setCarForm({ ...carForm, pricePerKmOneWay: Number(e.target.value) })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Round-Trip / KM (₹)</label>
+                        <input 
+                          type="number" 
+                          required
+                          value={carForm.pricePerKmRoundTrip}
+                          onChange={(e) => setCarForm({ ...carForm, pricePerKmRoundTrip: Number(e.target.value) })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Min Distance (KM)</label>
+                        <input 
+                          type="number" 
+                          required
+                          value={carForm.minBillingDistance}
+                          onChange={(e) => setCarForm({ ...carForm, minBillingDistance: Number(e.target.value) })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Driver Allowance (₹)</label>
+                        <input 
+                          type="number" 
+                          required
+                          value={carForm.driverAllowance}
+                          onChange={(e) => setCarForm({ ...carForm, driverAllowance: Number(e.target.value) })}
                           className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
                         />
                       </div>
@@ -1216,6 +1281,40 @@ export default function AdminConsole() {
                           <option value="unavailable">Unavailable / Booked</option>
                         </select>
                       </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Local Package Rate (₹)</label>
+                        <input 
+                          type="number" 
+                          required
+                          value={carForm.priceLocalPkg}
+                          onChange={(e) => setCarForm({ ...carForm, priceLocalPkg: Number(e.target.value) })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Airport Transfer Rate (₹)</label>
+                        <input 
+                          type="number" 
+                          required
+                          value={carForm.priceAirportTransfer}
+                          onChange={(e) => setCarForm({ ...carForm, priceAirportTransfer: Number(e.target.value) })}
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Toll, Parking & State Tax Policy</label>
+                      <input 
+                        type="text" 
+                        required
+                        value={carForm.tollParkingPolicy}
+                        onChange={(e) => setCarForm({ ...carForm, tollParkingPolicy: e.target.value })}
+                        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                      />
                     </div>
 
                     <div>
@@ -1275,7 +1374,7 @@ export default function AdminConsole() {
                       <tr className="bg-gray-100 text-gray-500 uppercase tracking-wider font-semibold border-b border-gray-200">
                         <th className="p-4">Car Details</th>
                         <th className="p-4">Category</th>
-                        <th className="p-4">Price Per Day</th>
+                        <th className="p-4">Pricing Model</th>
                         <th className="p-4">Status</th>
                         <th className="p-4">Visibility</th>
                         <th className="p-4 text-right">Actions</th>
@@ -1289,7 +1388,10 @@ export default function AdminConsole() {
                             <p className="text-[10px] text-gray-400 mt-0.5">Year: {car.year}</p>
                           </td>
                           <td className="p-4 font-semibold">{car.category}</td>
-                          <td className="p-4 font-bold text-secondary">₹{car.pricePerDay}</td>
+                          <td className="p-4 text-xs">
+                            <p className="font-bold text-secondary">OW: ₹{car.pricePerKmOneWay}/KM</p>
+                            <p className="font-bold text-primary">RT: ₹{car.pricePerKmRoundTrip}/KM</p>
+                          </td>
                           <td className="p-4 capitalize">
                             <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase ${car.status === 'available' ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
                               {car.status}
@@ -1389,15 +1491,28 @@ export default function AdminConsole() {
                           <td className="p-4">
                             <p className="font-bold">{b.user?.name || 'Deleted User'}</p>
                             <p className="text-[10px] text-gray-400 mt-0.5">{b.user?.email || 'N/A'}</p>
+                            {b.user?.phone && <p className="text-[10px] text-gray-400 font-semibold">{b.user.phone}</p>}
                           </td>
-                          <td className="p-4 font-semibold">
-                            {b.bookingType === 'car' ? `${b.car?.make} ${b.car?.model}` : b.packageDetails?.packageName}
+                          <td className="p-4">
+                            <p className="font-bold">{b.bookingType === 'car' ? `${b.car?.make} ${b.car?.model}` : b.packageDetails?.packageName}</p>
+                            {b.bookingType === 'car' && (
+                              <p className="text-[10px] text-primary font-bold uppercase mt-0.5">
+                                {b.tripType || 'One-Way'} • {b.fromCity || 'Jaipur'} to {b.toCity || 'Local'} {b.distance ? `(${b.distance} KM)` : ''}
+                              </p>
+                            )}
                           </td>
                           <td className="p-4">
                             <p>{new Date(b.startDate).toLocaleDateString()}</p>
                             <p className="text-gray-400 text-[10px] mt-0.5">to {new Date(b.endDate).toLocaleDateString()}</p>
                           </td>
-                          <td className="p-4 font-bold text-secondary">₹{b.totalAmount}</td>
+                          <td className="p-4 text-xs">
+                            <p className="font-bold text-secondary text-sm">₹{b.totalAmount}</p>
+                            {b.advancePaid ? (
+                              <p className="text-[10px] text-green-600 font-semibold mt-0.5">
+                                Adv: ₹{b.advancePaid} {b.transactionId ? `(Ref: ${b.transactionId})` : ''}
+                              </p>
+                            ) : null}
+                          </td>
                           <td className="p-4">
                              {b.status === 'pending' || b.status === 'confirmed' ? (
                                <select
@@ -3333,8 +3448,8 @@ export default function AdminConsole() {
                 {/* Payment Configuration */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-gray-100 pb-4">
                   <div>
-                    <h3 className="font-bold text-sm text-accent">Stripe Payment Gateway</h3>
-                    <p className="text-[10px] text-gray-400 mt-0.5">Manage public and secret keys.</p>
+                    <h3 className="font-bold text-sm text-accent">Payment Gateway & UPI</h3>
+                    <p className="text-[10px] text-gray-400 mt-0.5">Manage credentials, UPI IDs, and booking advance percentages.</p>
                   </div>
                   <div className="sm:col-span-2 space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -3360,6 +3475,34 @@ export default function AdminConsole() {
                             paymentGateway: { ...settingsForm.paymentGateway, stripeSecretKey: e.target.value }
                           })}
                           placeholder="••••••••••••••••••••"
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">UPI ID (For QR Code Payments)</label>
+                        <input 
+                          type="text"
+                          value={settingsForm.paymentGateway.upiId || ''}
+                          onChange={(e) => setSettingsForm({
+                            ...settingsForm,
+                            paymentGateway: { ...settingsForm.paymentGateway, upiId: e.target.value }
+                          })}
+                          placeholder="e.g. pkgupta2372@okaxis"
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">Booking Advance Percentage (%)</label>
+                        <input 
+                          type="number"
+                          value={settingsForm.paymentGateway.advancePaymentPercent !== undefined ? settingsForm.paymentGateway.advancePaymentPercent : 20}
+                          onChange={(e) => setSettingsForm({
+                            ...settingsForm,
+                            paymentGateway: { ...settingsForm.paymentGateway, advancePaymentPercent: Number(e.target.value) }
+                          })}
                           className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
                         />
                       </div>
@@ -3629,10 +3772,30 @@ export default function AdminConsole() {
                       <p className="text-gray-400 text-xs mt-0.5 font-semibold">Model Year: {selectedCar.year}</p>
                     </div>
 
-                    <div className="border-t border-gray-100 pt-4 space-y-3">
+                    <div className="border-t border-gray-100 pt-4 space-y-2 text-xs font-semibold text-accent">
                       <div>
-                        <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Daily Rental Fare</p>
-                        <p className="text-lg font-black text-secondary mt-0.5">₹{selectedCar.pricePerDay} <span className="text-xs text-gray-400 font-semibold">/ day</span></p>
+                        <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">One-Way Rate</p>
+                        <p className="text-secondary font-bold">₹{selectedCar.pricePerKmOneWay}/KM</p>
+                      </div>
+                      <div>
+                        <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Round-Trip Rate</p>
+                        <p className="text-primary font-bold">₹{selectedCar.pricePerKmRoundTrip}/KM</p>
+                      </div>
+                      <div>
+                        <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Min Billed Distance</p>
+                        <p>{selectedCar.minBillingDistance || 250} KM</p>
+                      </div>
+                      <div>
+                        <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Driver Allowance</p>
+                        <p>₹{selectedCar.driverAllowance || 300} / Day</p>
+                      </div>
+                      <div>
+                        <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Local / Airport Rates</p>
+                        <p>Local: ₹{selectedCar.priceLocalPkg || 2000} | Airport: ₹{selectedCar.priceAirportTransfer || 1500}</p>
+                      </div>
+                      <div className="pt-1.5 border-t border-gray-100">
+                        <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">Policy</p>
+                        <p className="text-gray-500 font-normal leading-normal text-[10px]">{selectedCar.tollParkingPolicy || 'Toll, parking, and state tax will be charged extra.'}</p>
                       </div>
                       <div>
                         <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Availability Status</p>

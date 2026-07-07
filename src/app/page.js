@@ -27,12 +27,150 @@ const destinationsList = [
   'Mumbai', 'Pune', 'Lonavala', 'Goa', 'Ahmedabad', 'Surat', 'Vadodara', 'Kochi', 'Munnar', 'Alleppey', 'Bengaluru', 'Mysore', 'Coorg', 'Chennai', 'Ooty', 'Kodaikanal', 'Hyderabad', 'Kolkata', 'Patna'
 ];
 
+const DEFAULT_SECTIONS = [
+  {
+    key: 'hero',
+    title: 'Hero Section banner and form',
+    enabled: true,
+    order: 1,
+    content: {
+      title: "Rajasthan's Premier Taxi Service - PK Gupta Tours & Travels",
+      subtitle: 'Book premium one-way, round-trip, or local cabs from Jaipur to Delhi NCR and across Rajasthan with verified drivers.',
+      description: 'Jaipur\'s #1 Premium Cab & Car Rental Service.',
+      bannerImage: 'hero-bg.png',
+      bannerType: 'image',
+      trustBadge: '★ Trusted Since 2025',
+      cancellationText: 'Cancellation Fee: ₹1,000',
+      bookingForm: {
+        showOneWay: true,
+        showRoundTrip: true,
+        showLocal: true,
+        showAirport: true
+      }
+    }
+  },
+  {
+    key: 'metrics',
+    title: 'Statistics panel',
+    enabled: true,
+    order: 2,
+    content: {
+      statistics: [
+        { value: '50,000+', label: 'Happy Riders' },
+        { value: '200+', label: 'Cities Covered' },
+        { value: '1,200+', label: 'Verified Drivers' },
+        { value: '4.8★', label: 'Average Rating' },
+        { value: '10+ Yrs', label: 'Trusted Since 2025' }
+      ]
+    }
+  },
+  {
+    key: 'steps',
+    title: 'Booking process steps guide',
+    enabled: true,
+    order: 3,
+    content: {
+      title: 'Book Your Cab in 4 Easy Steps',
+      subtitle: 'Simple Process',
+      items: [
+        { num: '01', title: 'Choose Your Route', desc: 'Select your pickup & drop cities, travel date, and preferred time.' },
+        { num: '02', title: 'Pick Your Cab', desc: 'Compare vehicles by size, features, and price to find the perfect fit.' },
+        { num: '03', title: 'Instant Confirmation', desc: 'Get immediate booking confirmation via SMS and WhatsApp.' },
+        { num: '04', title: 'Enjoy the Ride', desc: 'Track your driver in real-time and enjoy a safe, comfortable journey.' }
+      ]
+    }
+  },
+  {
+    key: 'services',
+    title: 'Company premium services list',
+    enabled: true,
+    order: 4,
+    content: {
+      title: 'Our Premium Travel Services',
+      subtitle: 'What We Offer',
+      items: [
+        { title: 'Local Taxi Rental', desc: 'Hourly packages for city tours, shopping, and business travel.', icon: 'Car' },
+        { title: 'Outstation One-Way', desc: 'Affordable one-way drops to major cities with zero return fare.', icon: 'Navigation' },
+        { title: 'Airport Transfers', desc: 'Punctual pickup and drop services to/from major airports.', icon: 'Plane' }
+      ]
+    }
+  },
+  {
+    key: 'popular_trips',
+    title: 'Popular routes list',
+    enabled: true,
+    order: 5,
+    content: {
+      title: 'Popular Cab Routes',
+      subtitle: 'Popular Intercity Routes',
+      description: 'Outstation one-way & round-trip taxi packages starting from Jaipur.',
+      trips: [
+        { route: 'Jaipur to Delhi NCR', distance: '270 KM', duration: '5 Hrs', oneWayPrice: '2999', roundTripPrice: '5999' },
+        { route: 'Jaipur to Udaipur', distance: '400 KM', duration: '7 Hrs', oneWayPrice: '4499', roundTripPrice: '8999' },
+        { route: 'Jaipur to Jodhpur', distance: '340 KM', duration: '6 Hrs', oneWayPrice: '3799', roundTripPrice: '7499' },
+        { route: 'Jaipur to Ajmer', distance: '135 KM', duration: '2.5 Hrs', oneWayPrice: '1499', roundTripPrice: '2999' }
+      ]
+    }
+  },
+  {
+    key: 'faq',
+    title: 'Frequently Asked Questions',
+    enabled: true,
+    order: 6,
+    content: {
+      title: 'Frequently Asked Questions',
+      questions: [
+        { q: 'How do I pay the advance amount?', a: 'You can pay the advance amount online during booking using our UPI QR Code. The booking will be pending approval until the payment is verified.' },
+        { q: 'Are tolls and taxes included in the fare?', a: 'Tolls, state taxes, and parking fees are typically charged extra as per receipts unless specified otherwise.' },
+        { q: 'What is the cancellation policy?', a: 'You can cancel your booking for free up to 24 hours before your scheduled pickup time.' }
+      ]
+    }
+  },
+  {
+    key: 'testimonials',
+    title: 'What Our Customers Say',
+    enabled: true,
+    order: 7,
+    content: {
+      title: 'What Our Customers Say',
+      reviews: [
+        { name: 'Rahul Sharma', review: 'Excellent service! The driver was on time, and the car was clean. The UPI advance payment was very simple and convenient.' },
+        { name: 'Priya Patel', review: 'Booked a one-way cab from Jaipur to Gurgaon. Very professional driver and reasonable pricing compared to other services.' }
+      ]
+    }
+  },
+  {
+    key: 'blogs',
+    title: 'Latest Travel Guides & News',
+    enabled: true,
+    order: 8,
+    content: {
+      title: 'Latest Travel Guides & News',
+      subtitle: 'Our Blogs',
+      items: [
+        { title: 'Exploring the Pink City: A 3-Day Jaipur Itinerary', desc: 'Discover the best palaces, forts, and bazaars in Jaipur with our comprehensive travel guide.', date: 'July 5, 2026', image: '' },
+        { title: 'Jaipur to Delhi NCR Road Trip Guide', desc: 'Tips, route options, and top food stops along the Jaipur-Delhi national highway.', date: 'June 28, 2026', image: '' }
+      ]
+    }
+  },
+  {
+    key: 'brochure',
+    title: 'Download Trip Brochure',
+    enabled: true,
+    order: 9,
+    content: {
+      title: 'Download Trip Brochure',
+      description: 'Get detailed travel itinerary, route maps, and price lists for Delhi & Rajasthan.'
+    }
+  }
+];
+
 export default function Home() {
   const router = useRouter();
   
   // Search state
   const [tab, setTab] = useState('one-way');
-  const [fromCity, setFromCity] = useState('New Delhi');
+  const [fromCity, setFromCity] = useState('Jaipur');
   const [toCity, setToCity] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('10:00');
@@ -45,19 +183,25 @@ export default function Home() {
   const [showToDropdown, setShowToDropdown] = useState(false);
 
   // Dynamic CMS sections
-  const [sections, setSections] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [sections, setSections] = useState(DEFAULT_SECTIONS);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     API.get('/cms')
       .then((res) => {
-        if (res.data && res.data.success) {
-          setSections(res.data.data);
+        if (res.data && res.data.success && res.data.data && res.data.data.length > 0) {
+          // Merge default sections with fetched ones to make sure we keep any defaults not stored in DB
+          const dbSections = res.data.data;
+          const merged = DEFAULT_SECTIONS.map(def => {
+            const match = dbSections.find(db => db.key === def.key);
+            return match ? match : def;
+          });
+          setSections(merged);
         }
       })
-      .catch(() => {})
-      .finally(() => {
-        setLoading(false);
+      .catch(() => {
+        // Fall back to default sections silently
+        setSections(DEFAULT_SECTIONS);
       });
   }, []);
 
@@ -151,6 +295,16 @@ export default function Home() {
                         <span>24/7 Support</span>
                       </div>
                     </div>
+
+                    {/* Call Now Buttons */}
+                    <div className="flex flex-wrap gap-4 pt-4 text-xs font-bold uppercase tracking-wider">
+                      <a href="tel:+919024644165" className="flex items-center space-x-2 bg-primary hover:bg-yellow-600 text-white px-5 py-3 rounded-lg shadow transition-all cursor-pointer">
+                        <span>📞 Call Now: +91 90246 44165</span>
+                      </a>
+                      <a href="tel:+919828252470" className="flex items-center space-x-2 bg-secondary hover:bg-red-600 text-white px-5 py-3 rounded-lg shadow transition-all cursor-pointer">
+                        <span>📞 Call Now: +91 98282 52470</span>
+                      </a>
+                    </div>
                   </div>
 
                   {/* Right Floating Booking Widget */}
@@ -160,13 +314,16 @@ export default function Home() {
                       {[
                         { id: 'one-way', label: 'One Way', enabled: content.bookingForm?.showOneWay !== false },
                         { id: 'round-trip', label: 'Round Trip', enabled: content.bookingForm?.showRoundTrip !== false },
-                        { id: 'local', label: 'Local', enabled: content.bookingForm?.showLocal !== false },
+                        { id: 'local', label: 'Local Rajasthan', enabled: content.bookingForm?.showLocal !== false },
                         { id: 'airport', label: 'Airport', enabled: content.bookingForm?.showAirport !== false }
                       ].filter(t => t.enabled).map((t) => (
                         <button
                           key={t.id}
                           type="button"
-                          onClick={() => setTab(t.id)}
+                          onClick={() => {
+                            setTab(t.id);
+                            setCabType(t.id === 'local' ? 'Jaipur (RJ-14)' : 'SUV');
+                          }}
                           className={`py-2 px-1 rounded-md text-center transition-all cursor-pointer ${
                             tab === t.id 
                               ? 'bg-primary text-white shadow-sm' 
@@ -299,9 +456,11 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Cab Category selection */}
+                      {/* Cab Category selection / Local Rajasthan */}
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">Cab Type</label>
+                        <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">
+                          {tab === 'local' ? 'Local Rajasthan' : 'Cab Type'}
+                        </label>
                         <div className="relative">
                           <Car className="absolute left-3 top-3 w-4 h-4 text-primary" />
                           <select
@@ -309,15 +468,32 @@ export default function Home() {
                             onChange={(e) => setCabType(e.target.value)}
                             className="w-full pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-primary appearance-none transition-all text-accent font-semibold"
                           >
-                            {(content.bookingForm?.cabTypes || [
-                              { value: 'SUV', label: 'SUV - 6 Seater (Innova, Ertiga)' },
-                              { value: 'Sedan', label: 'Sedan - 4 Seater (Dzire, Etios)' },
-                              { value: 'Luxury', label: 'Luxury - Elite Seater (Fortuner, E-Class)' }
-                            ]).map((ct, index) => (
-                              <option key={index} value={ct.value}>
-                                {ct.label}
-                              </option>
-                            ))}
+                            {tab === 'local' ? (
+                              [
+                                { value: 'Jaipur (RJ-14)', label: 'Jaipur (RJ-14)' },
+                                { value: 'Udaipur (RJ-27)', label: 'Udaipur (RJ-27)' },
+                                { value: 'Jodhpur (RJ-19)', label: 'Jodhpur (RJ-19)' },
+                                { value: 'Ajmer (RJ-01)', label: 'Ajmer (RJ-01)' },
+                                { value: 'Kota (RJ-20)', label: 'Kota (RJ-20)' },
+                                { value: 'Bikaner (RJ-07)', label: 'Bikaner (RJ-07)' },
+                                { value: 'Alwar (RJ-02)', label: 'Alwar (RJ-02)' },
+                                { value: 'Other Rajasthan', label: 'Other Rajasthan Area' }
+                              ].map((opt, index) => (
+                                <option key={index} value={opt.value}>
+                                  {opt.label}
+                                </option>
+                              ))
+                            ) : (
+                              (content.bookingForm?.cabTypes || [
+                                { value: 'SUV', label: 'SUV - 6 Seater (Innova, Ertiga)' },
+                                { value: 'Sedan', label: 'Sedan - 4 Seater (Dzire, Etios)' },
+                                { value: 'Luxury', label: 'Luxury - Elite Seater (Fortuner, E-Class)' }
+                              ]).map((ct, index) => (
+                                <option key={index} value={ct.value}>
+                                  {ct.label}
+                                </option>
+                              ))
+                            )}
                           </select>
                         </div>
                       </div>
@@ -429,15 +605,9 @@ export default function Home() {
                             <p className="text-[11px] text-gray-400 mt-1 font-semibold">{trip.distance} • {trip.duration}</p>
                           </div>
 
-                          <div className="pt-3 border-t border-gray-100 grid grid-cols-2 gap-2 text-center">
-                            <div className="bg-blue-50/50 p-2 rounded-lg">
-                              <p className="text-[9px] uppercase tracking-wider font-bold text-gray-400">One Way</p>
-                              <p className="text-sm font-bold text-secondary mt-0.5">₹{trip.oneWayPrice}</p>
-                            </div>
-                            <div className="bg-blue-50 p-2 rounded-lg">
-                              <p className="text-[9px] uppercase tracking-wider font-bold text-gray-400">Round Trip</p>
-                              <p className="text-sm font-bold text-primary mt-0.5">₹{trip.roundTripPrice}</p>
-                            </div>
+                          <div className="pt-3 border-t border-gray-100 text-center">
+                            <p className="text-xs font-bold text-secondary">Premium Luxury Car Included</p>
+                            <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Toll & tax policies apply</p>
                           </div>
                         </div>
 
@@ -547,28 +717,7 @@ export default function Home() {
             );
 
           case 'brochure':
-            return (
-              <section key="brochure" className="py-12 bg-primary text-white text-center">
-                <div className="max-w-4xl mx-auto px-4 space-y-4">
-                  <Award className="w-12 h-12 mx-auto text-amber-400" />
-                  <h2 className="text-3xl font-extrabold">{content.title || 'Download Trip Brochure'}</h2>
-                  <p className="text-sm text-blue-100 max-w-xl mx-auto leading-relaxed">
-                    {content.description || 'Get detailed travel itinerary, route maps, and price lists for Delhi & Rajasthan.'}
-                  </p>
-                  {/* {content.fileUrl && (
-                    <a 
-                      href={`http://localhost:5000/${content.fileUrl}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center space-x-2 bg-secondary hover:bg-red-600 text-white font-bold py-2.5 px-6 rounded-lg text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer"
-                    >
-                      <FileDown className="w-4 h-4" />
-                      <span>{content.buttonText || 'Download Brochure PDF'}</span>
-                    </a>
-                  )} */}
-                </div>
-              </section>
-            );
+            return null;
 
           default:
             return null;

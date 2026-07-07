@@ -223,19 +223,20 @@ function CarsContent() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <div>
-                        <span className="text-xl font-extrabold text-secondary">₹{car.pricePerDay}</span>
-                        <span className="text-gray-400 text-xs"> / Day</span>
+                    <div className="flex flex-col space-y-2 pt-4 border-t border-gray-100">
+                      <div className="flex justify-between items-center text-xs font-semibold text-accent">
+                        <span className="text-secondary uppercase text-[9px] tracking-wider font-bold">Premium Cab Service</span>
+                        <span className="text-green-600 bg-green-50 px-2 py-0.5 rounded text-[9px] font-bold uppercase">All Inclusive Toll Options</span>
                       </div>
-
-                      <Link
-                        href={`/cars/${car._id}`}
-                        className="flex items-center space-x-1 px-4 py-2 rounded-lg bg-accent text-white text-xs font-semibold hover:bg-primary transition-colors shadow-sm"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>View Details</span>
-                      </Link>
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-[10px] text-gray-400 font-semibold">Capacity: {car.features.includes('6 Seater') || car.category === 'SUV' ? '6 Passengers' : '4 Passengers'}</span>
+                        <Link
+                          href={`/cars/${car._id}?${searchParams.toString()}`}
+                          className="flex items-center space-x-1 px-4 py-2 rounded-lg bg-accent text-white text-xs font-bold hover:bg-primary transition-all shadow-sm"
+                        >
+                          <span>Select Vehicle</span>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

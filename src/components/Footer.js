@@ -47,8 +47,8 @@ export default function Footer() {
   }, []);
 
   const companyName = settings?.companyName || 'PK Gupta Tour & Travels';
-  const email = settings?.contactDetails?.email || 'info@pkguptatravels.com';
-  const phone = settings?.contactDetails?.phone || '9828252470';
+  const email = settings?.contactDetails?.email || 'pkgupta2372@gmail.com';
+  const phone = settings?.contactDetails?.phone || '+91 90246 44165, +91 98282 52470';
   const address = settings?.contactDetails?.address || 'Jaipur, Rajasthan, India';
 
   return (
@@ -130,13 +130,15 @@ export default function Footer() {
               <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <span>{address}</span>
             </li>
-            <li className="flex items-center space-x-2">
-              <Phone className="w-4 h-4 text-primary shrink-0" />
-              <span>{phone}</span>
-            </li>
+            {phone.split(',').map((ph, index) => (
+              <li key={index} className="flex items-center space-x-2">
+                <Phone className="w-4 h-4 text-primary shrink-0" />
+                <a href={`tel:${ph.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">{ph.trim()}</a>
+              </li>
+            ))}
             <li className="flex items-center space-x-2">
               <Mail className="w-4 h-4 text-primary shrink-0" />
-              <span>{email}</span>
+              <a href={`mailto:${email}`} className="hover:text-white transition-colors">{email}</a>
             </li>
           </ul>
         </div>

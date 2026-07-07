@@ -135,18 +135,25 @@ export default function FAQPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 text-xs sm:text-sm font-semibold">
               <a 
-                href="mailto:info@pkguptatravels.com" 
+                href="mailto:pkgupta2372@gmail.com" 
                 className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2.5 rounded-xl transition-all w-fit"
               >
                 <Mail className="w-4 h-4 text-amber-300" />
-                <span>info@pkguptatravels.com</span>
+                <span>pkgupta2372@gmail.com</span>
               </a>
               <a 
-                href="tel:9828252470" 
+                href="tel:+919024644165" 
                 className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2.5 rounded-xl transition-all w-fit"
               >
                 <Phone className="w-4 h-4 text-amber-300" />
-                <span>+91 9828252470</span>
+                <span>+91 90246 44165</span>
+              </a>
+              <a 
+                href="tel:+919828252470" 
+                className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2.5 rounded-xl transition-all w-fit"
+              >
+                <Phone className="w-4 h-4 text-amber-300" />
+                <span>+91 98282 52470</span>
               </a>
             </div>
           </div>
