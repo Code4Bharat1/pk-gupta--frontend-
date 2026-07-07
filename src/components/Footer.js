@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import API from '@/utils/api';
+import API, { getAssetUrl } from '@/utils/api';
 import { Mail, Phone, MapPin, FileDown } from 'lucide-react';
 
 export default function Footer() {
@@ -64,7 +64,7 @@ export default function Footer() {
           {/* Brochure Download CTA */}
           {/* {footerContent.brochureUrl && (
             <a 
-              href={`http://localhost:5000/${footerContent.brochureUrl}`} 
+              href={getAssetUrl(footerContent.brochureUrl)} 
               target="_blank" 
               rel="noreferrer"
               className="inline-flex items-center space-x-2 text-xs font-bold text-primary hover:text-blue-400 transition-colors bg-white/5 border border-white/10 px-3.5 py-2 rounded-lg hover:bg-white/10 cursor-pointer"

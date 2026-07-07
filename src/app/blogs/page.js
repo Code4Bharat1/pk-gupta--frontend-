@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import API from '@/utils/api';
+import API, { getAssetUrl } from '@/utils/api';
 import { Calendar, ChevronLeft, BookOpen, Clock, X } from 'lucide-react';
 import Link from 'next/link';
 
@@ -60,7 +60,7 @@ export default function BlogsPage() {
                   <div className="cursor-pointer" onClick={() => setSelectedBlog(blog)}>
                     <div className="h-48 bg-gray-100 relative">
                       <img 
-                        src={blog.image ? `http://localhost:5000/${blog.image}` : '/hero-bg.png'} 
+                        src={blog.image ? getAssetUrl(blog.image) : '/hero-bg.png'} 
                         alt={blog.title}
                         className="w-full h-full object-cover"
                       />
@@ -100,7 +100,7 @@ export default function BlogsPage() {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl border border-gray-100 overflow-hidden animate-scale-up flex flex-col">
             <div className="relative h-56 sm:h-72 bg-gray-100 shrink-0">
               <img 
-                src={selectedBlog.image ? `http://localhost:5000/${selectedBlog.image}` : '/hero-bg.png'} 
+                src={selectedBlog.image ? getAssetUrl(selectedBlog.image) : '/hero-bg.png'} 
                 alt={selectedBlog.title}
                 className="w-full h-full object-cover"
               />

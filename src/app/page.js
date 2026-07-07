@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import API from '@/utils/api';
+import API, { getAssetUrl } from '@/utils/api';
 import { 
   Calendar, Clock, MapPin, Navigation, Car, CheckCircle2, ChevronRight, 
   Menu, X, Phone, Mail, Award, Compass, Star, ChevronDown, FileDown, BookOpen 
@@ -261,7 +261,7 @@ export default function Home() {
                 key="hero"
                 className="relative min-h-[580px] flex items-center bg-cover bg-center py-12 px-4 sm:px-6 lg:px-8 transition-all"
                 style={{ 
-                  backgroundImage: `linear-gradient(rgba(13, 27, 42, 0.75), rgba(13, 27, 42, 0.85)), url('${content.bannerImage ? (content.bannerImage.startsWith('http') || content.bannerImage.startsWith('uploads') || content.bannerImage.startsWith('/') ? (content.bannerImage.startsWith('/') || content.bannerImage.startsWith('http') ? content.bannerImage : `http://localhost:5000/${content.bannerImage}`) : `/hero-bg.png`) : `/hero-bg.png`}')` 
+                  backgroundImage: `linear-gradient(rgba(13, 27, 42, 0.75), rgba(13, 27, 42, 0.85)), url('${getAssetUrl(content.bannerImage || 'hero-bg.png')}')` 
                 }}
               >
                 <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
@@ -693,7 +693,7 @@ export default function Home() {
                       <div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col sm:flex-row hover:shadow-md transition-shadow">
                         <div className="sm:w-1/3 bg-gray-100 h-40 sm:h-auto">
                           <img 
-                            src={blog.image ? `http://localhost:5000/${blog.image}` : '/hero-bg.png'} 
+                            src={blog.image ? getAssetUrl(blog.image) : '/hero-bg.png'} 
                             alt={blog.title}
                             className="w-full h-full object-cover"
                           />

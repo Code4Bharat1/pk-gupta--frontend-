@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import API from '@/utils/api';
+import API, { getAssetUrl } from '@/utils/api';
 import { 
   ShieldCheck, LayoutDashboard, Users, Car, ClipboardList, FileEdit, Settings, 
   ArrowLeft, Users2, IndianRupee, BookOpen, Plus, Edit, Trash, Check, X, 
@@ -3280,7 +3280,7 @@ export default function AdminConsole() {
                         <div className="flex items-center space-x-3">
                           {settingsForm.logo && (
                             <img 
-                              src={`http://localhost:5000/${settingsForm.logo}`} 
+                              src={getAssetUrl(settingsForm.logo)} 
                               alt="Logo" 
                               className="w-10 h-10 object-contain border border-gray-200 rounded p-0.5 bg-gray-900"
                             />
@@ -3756,7 +3756,7 @@ export default function AdminConsole() {
                 <div>
                   <div className="relative h-48 bg-gray-100">
                     <img 
-                      src={selectedCar.images[0] ? `http://localhost:5000/${selectedCar.images[0]}` : '/hero-bg.png'} 
+                      src={selectedCar.images[0] ? getAssetUrl(selectedCar.images[0]) : '/hero-bg.png'} 
                       alt={`${selectedCar.make} ${selectedCar.model}`}
                       className="w-full h-full object-cover"
                     />
@@ -4063,13 +4063,13 @@ export default function AdminConsole() {
         {/* TAB: REVIEWS */}
         {activeTab === 'reviews' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-extrabold text-accent">Customer Reviews Moderation</h1>
-              <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-accent">Customer Reviews Moderation</h1>
+              <div className="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto">
                 <select
                   value={reviewStatusFilter}
                   onChange={(e) => setReviewStatusFilter(e.target.value)}
-                  className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent w-40 font-semibold"
+                  className="flex-1 sm:flex-initial px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent sm:w-40 font-semibold"
                 >
                   <option value="">All Statuses</option>
                   <option value="pending">Pending</option>
@@ -4078,7 +4078,7 @@ export default function AdminConsole() {
                 </select>
                 <button
                   onClick={fetchReviews}
-                  className="bg-primary hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg text-xs uppercase tracking-wider cursor-pointer"
+                  className="bg-primary hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg text-xs uppercase tracking-wider cursor-pointer flex-shrink-0"
                 >
                   Filter
                 </button>

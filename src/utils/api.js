@@ -8,6 +8,23 @@ const API = axios.create({
   },
 });
 
+export const getAssetUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+    return path;
+  }
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (apiUrl) {
+    try {
+      const url = new URL(apiUrl);
+      return `${url.origin}/${path}`;
+    } catch (e) {
+      // fallback
+    }
+  }
+  return `http://localhost:5000/${path}`;
+};
+
 // Request interceptor to attach JWT token
 API.interceptors.request.use(
   (config) => {

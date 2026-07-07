@@ -3,7 +3,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import API from '@/utils/api';
+import API, { getAssetUrl } from '@/utils/api';
 import { Search, SlidersHorizontal, Check, AlertCircle, Eye, Car } from 'lucide-react';
 import Link from 'next/link';
 
@@ -183,7 +183,7 @@ function CarsContent() {
                 <div key={car._id} className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-all">
                   <div className="relative h-48 bg-gray-100">
                     <img
-                      src={car.images[0] ? `http://localhost:5000/${car.images[0]}` : '/hero-bg.png'}
+                      src={car.images[0] ? getAssetUrl(car.images[0]) : '/hero-bg.png'}
                       alt={`${car.make} ${car.model}`}
                       className="w-full h-full object-cover"
                     />

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { LogOut, User, ShieldAlert, Car, Menu, X } from 'lucide-react';
-import API from '@/utils/api';
+import API, { getAssetUrl } from '@/utils/api';
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -84,7 +84,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center space-x-2 shrink-0">
           {logo ? (
             <img
-              src={`http://localhost:5000/${logo}`}
+              src={getAssetUrl(logo)}
               alt="Logo"
               className="h-11 md:h-13 object-contain transition-all"
             />

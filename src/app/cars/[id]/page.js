@@ -3,7 +3,7 @@ import { useState, useEffect, use, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import API from '@/utils/api';
+import API, { getAssetUrl } from '@/utils/api';
 import { Calendar, AlertCircle, ArrowLeft, ShieldCheck, CreditCard, Sparkles, Check } from 'lucide-react';
 import Link from 'next/link';
 
@@ -269,7 +269,7 @@ function CarDetailContent({ params: paramsPromise }) {
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
             <img
-              src={car.images[0] ? `http://localhost:5000/${car.images[0]}` : '/hero-bg.png'}
+              src={car.images[0] ? getAssetUrl(car.images[0]) : '/hero-bg.png'}
               alt={`${car.make} ${car.model}`}
               className="w-full h-96 object-cover"
             />
