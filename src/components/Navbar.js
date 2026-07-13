@@ -64,7 +64,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-gray-100">
       {/* Top Bar for Contact Details */}
       <div className="bg-accent text-gray-300 text-[11px] py-1.5 border-b border-gray-850">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2 font-semibold">
+        <div className="max-w-[1440px] w-11/12 mx-auto flex flex-wrap items-center justify-between gap-2 font-semibold">
           <div className="flex items-center space-x-4">
             <a href="tel:+919024644165" className="hover:text-primary transition-colors flex items-center space-x-1">
               <span>📞 +91 90246 44165</span>
@@ -79,7 +79,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-[1440px] w-11/12 mx-auto h-16 flex items-center justify-between">
         {/* Branding Logo */}
         <Link href="/" className="flex items-center space-x-2 shrink-0">
           {logo ? (

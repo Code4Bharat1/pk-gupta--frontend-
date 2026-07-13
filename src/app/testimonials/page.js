@@ -55,7 +55,7 @@ export default function TestimonialsPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
+        <div className="max-w-[1440px] w-11/12 mx-auto space-y-8 animate-fade-in">
           {/* Navigation Back */}
           <Link href="/" className="inline-flex items-center space-x-1 text-xs font-bold text-gray-500 hover:text-primary transition-colors cursor-pointer">
             <ChevronLeft className="w-4 h-4" />
@@ -85,25 +85,14 @@ export default function TestimonialsPage() {
               {reviews.map((rev, index) => (
                 <div 
                   key={index} 
-                  className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/30 transition-all duration-300"
+                  className="luxury-card bg-gray-50 flex flex-col justify-between"
                 >
                   <div className="space-y-4">
                     {/* Stars */}
-                    <div className="flex items-center space-x-0.5 text-amber-500">
-                      {Array.from({ length: 5 }).map((_, i) => {
-                        const starValue = i + 1;
-                        return (
-                          <Star 
-                            key={i} 
-                            className={`w-4 h-4 ${
-                              starValue <= Math.round(rev.rating) 
-                                ? 'fill-current text-amber-500' 
-                                : 'text-gray-200'
-                            }`} 
-                          />
-                        );
-                      })}
-                      <span className="text-xs font-bold text-accent ml-2">{rev.rating || 5}</span>
+                    <div className="flex items-center space-x-1 text-amber-500 mb-3">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <span key={i} className="text-lg">★</span>
+                      ))}
                     </div>
 
                     {/* Review text */}
@@ -113,7 +102,7 @@ export default function TestimonialsPage() {
                   </div>
 
                   {/* Reviewer Details */}
-                  <div className="flex items-center space-x-3 pt-4 border-t border-gray-150 mt-5">
+                  <div className="flex items-center space-x-3 pt-4 mt-5">
                     <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-black text-xs shadow-inner">
                       {getInitials(rev.name)}
                     </div>

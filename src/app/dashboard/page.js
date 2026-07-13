@@ -125,9 +125,9 @@ export default function Dashboard() {
     <>
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <main className="max-w-[1440px] w-11/12 mx-auto py-10 flex-1 grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Left Dashboard Tabs Sidebar */}
-        <div className="lg:col-span-1 bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-fit space-y-6">
+        <div className="lg:col-span-1 luxury-card bg-white h-fit space-y-6">
           <div className="flex items-center space-x-3 pb-4 border-b border-gray-100">
             <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold">
               {user.name[0]}
@@ -176,7 +176,7 @@ export default function Dashboard() {
                   <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
                 </div>
               ) : bookings.length === 0 ? (
-                <div className="bg-white p-8 rounded-xl border border-gray-200 text-center text-gray-500 shadow-sm">
+                <div className="bg-white luxury-card text-center text-gray-500">
                   <FileText className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                   <p className="font-bold">No bookings recorded yet</p>
                   <p className="text-xs text-gray-400 mt-1 mb-4">Book packages or rent cars to get started.</p>
@@ -189,7 +189,7 @@ export default function Dashboard() {
                   {bookings.map((booking) => {
                     const isCar = booking.bookingType === 'car';
                     return (
-                      <div key={booking._id} className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                      <div key={booking._id} className="bg-white luxury-card space-y-4">
                         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-3">
                           <div>
                             <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
@@ -274,7 +274,7 @@ export default function Dashboard() {
           {activeTab === 'profile' && (
             <div className="space-y-8">
               {/* Profile Details */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="bg-white luxury-card space-y-4">
                 <h2 className="text-xl font-bold text-accent border-b border-gray-100 pb-3 flex items-center space-x-2">
                   <UserCheck className="w-5 h-5 text-primary" />
                   <span>Update Profile Info</span>
@@ -313,7 +313,7 @@ export default function Dashboard() {
               </div>
 
               {/* Password change */}
-              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <div className="bg-white luxury-card space-y-4">
                 <h2 className="text-xl font-bold text-accent border-b border-gray-100 pb-3 flex items-center space-x-2">
                   <ShieldCheck className="w-5 h-5 text-primary" />
                   <span>Change Password</span>

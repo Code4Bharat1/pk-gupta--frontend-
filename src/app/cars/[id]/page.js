@@ -258,7 +258,7 @@ function CarDetailContent({ params: paramsPromise }) {
   }
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
+    <main className="max-w-[1440px] w-11/12 mx-auto py-10 flex-1">
       <Link href="/cars" className="inline-flex items-center space-x-1.5 text-xs font-semibold text-gray-500 hover:text-primary mb-6 transition-colors">
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Fleet</span>
@@ -267,7 +267,7 @@ function CarDetailContent({ params: paramsPromise }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Left Side: Images, Features, and Pricing Card */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+          <div className="luxury-card bg-white !p-0 overflow-hidden">
             <img
               src={car.images[0] ? getAssetUrl(car.images[0]) : '/hero-bg.png'}
               alt={`${car.make} ${car.model}`}
@@ -275,7 +275,7 @@ function CarDetailContent({ params: paramsPromise }) {
             />
           </div>
 
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+          <div className="luxury-card bg-white space-y-6">
             <div>
               <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">
                 {car.category}
@@ -348,7 +348,7 @@ function CarDetailContent({ params: paramsPromise }) {
 
         {/* Right Side: Booking Wizard & UPI Payments */}
         <div className="lg:col-span-5">
-          <div className="bg-white rounded-xl border border-gray-200 shadow-lg p-6 sticky top-24 space-y-6">
+          <div className="bg-white luxury-card sticky top-24 space-y-6">
             {bookingSuccess ? (
               <div className="py-8 text-center space-y-4">
                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-sm animate-bounce">

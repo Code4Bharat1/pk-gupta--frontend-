@@ -20,8 +20,11 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
+      <head>
+        <link href="https://api.fontshare.com/v2/css?f[]=synonym@400,500,600,700&f[]=amulya@400,500,700&display=swap" rel="stylesheet" />
+      </head>
       <body className="min-h-full flex flex-col bg-light text-accent">
         {children}
 

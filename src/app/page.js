@@ -264,7 +264,7 @@ export default function Home() {
                   backgroundImage: `linear-gradient(rgba(13, 27, 42, 0.75), rgba(13, 27, 42, 0.85)), url('${getAssetUrl(content.bannerImage || 'hero-bg.png')}')` 
                 }}
               >
-                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <div className="max-w-[1440px] w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
                   
                   {/* Left Title details */}
                   <div className="lg:col-span-7 text-white space-y-6">
@@ -308,7 +308,7 @@ export default function Home() {
                   </div>
 
                   {/* Right Floating Booking Widget */}
-                  <div className="lg:col-span-5 bg-white rounded-xl shadow-2xl p-6 text-accent border border-gray-100">
+                  <div className="lg:col-span-5 bg-white rounded-xl shadow-2xl p-6 text-accent">
                     {/* Cab type Tabs */}
                     <div className="grid grid-cols-4 gap-1 bg-gray-100 p-1 rounded-lg mb-6 text-xs font-semibold">
                       {[
@@ -517,7 +517,7 @@ export default function Home() {
           case 'metrics':
             return (
               <section key="metrics" className="bg-primary text-white py-6">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+                <div className="max-w-[1440px] w-11/12 mx-auto grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
                   {(content.statistics || []).map((stat, idx) => (
                     <div key={idx}>
                       <p className="text-3xl font-extrabold">{stat.value}</p>
@@ -531,7 +531,7 @@ export default function Home() {
           case 'steps':
             return (
               <section key="steps" className="py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="max-w-[1440px] w-11/12 mx-auto text-center">
                   <p className="text-xs font-bold text-secondary uppercase tracking-widest mb-2">
                     {content.subtitle || 'Simple Process'}
                   </p>
@@ -541,7 +541,7 @@ export default function Home() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {(content.items || []).map((s) => (
-                      <div key={s.num} className="relative p-6 bg-gray-50 rounded-xl border border-gray-100 flex flex-col items-center">
+                      <div key={s.num} className="relative luxury-card bg-gray-50 flex flex-col items-center">
                         <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-extrabold text-lg mb-4">
                           {s.num}
                         </div>
@@ -557,7 +557,7 @@ export default function Home() {
           case 'services':
             return (
               <section id="services" key="services" className="py-16 bg-gray-50 border-t border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="max-w-[1440px] w-11/12 mx-auto text-center">
                   <p className="text-xs font-bold text-secondary uppercase tracking-widest mb-2">
                     {content.subtitle || 'What We Offer'}
                   </p>
@@ -567,7 +567,7 @@ export default function Home() {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {(content.items || []).map((serv, idx) => (
-                      <div key={idx} className="bg-white p-8 rounded-xl shadow-sm border border-gray-200/60 hover:shadow-md transition-shadow text-center flex flex-col items-center">
+                      <div key={idx} className="luxury-card bg-white text-center flex flex-col items-center">
                         <div className="w-14 h-14 bg-primary/5 text-primary rounded-lg flex items-center justify-center mb-6">
                           <Car className="w-7 h-7" />
                         </div>
@@ -583,7 +583,7 @@ export default function Home() {
           case 'popular_trips':
             return (
               <section key="popular_trips" className="py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1440px] w-11/12 mx-auto">
                   <div className="text-center max-w-2xl mx-auto mb-12">
                     <p className="text-xs font-bold text-secondary uppercase tracking-widest mb-2">
                       {content.subtitle || 'Popular Intercity Routes'}
@@ -598,7 +598,7 @@ export default function Home() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {(content.trips || []).map((trip, index) => (
-                      <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-150 overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
+                      <div key={index} className="luxury-card bg-white !p-0 overflow-hidden flex flex-col justify-between group">
                         <div className="p-5 space-y-4">
                           <div>
                             <h3 className="text-base font-extrabold text-accent group-hover:text-primary transition-colors">{trip.route}</h3>
@@ -628,13 +628,13 @@ export default function Home() {
           case 'faq':
             return (
               <section id="faq" key="faq" className="py-16 bg-gray-50 border-t border-b border-gray-100">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1440px] w-11/12 mx-auto">
                   <h2 className="text-3xl font-extrabold text-accent text-center mb-12">
                     {content.title || 'Frequently Asked Questions'}
                   </h2>
                   <div className="space-y-4">
                     {(content.questions || []).map((item, index) => (
-                      <div key={index} className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+                      <div key={index} className="luxury-card bg-white">
                         <h4 className="font-bold text-base text-accent mb-2 flex items-start">
                           <span className="text-primary mr-2">Q:</span>
                           <span>{item.q}</span>
@@ -652,13 +652,13 @@ export default function Home() {
           case 'testimonials':
             return (
               <section id="testimonials" key="testimonials" className="py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1440px] w-11/12 mx-auto">
                   <h2 className="text-3xl font-extrabold text-accent text-center mb-12">
                     {content.title || 'What Our Customers Say'}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {(content.reviews || []).map((t, index) => (
-                      <div key={index} className="p-6 bg-gray-50 rounded-xl border border-gray-100">
+                      <div key={index} className="luxury-card bg-gray-50 flex flex-col justify-between">
                         <div className="flex items-center space-x-1 text-amber-500 mb-3">
                           {Array.from({ length: 5 }).map((_, i) => (
                             <span key={i} className="text-lg">★</span>
@@ -678,7 +678,7 @@ export default function Home() {
           case 'blogs':
             return (
               <section id="blogs" key="blogs" className="py-16 bg-gray-50 border-t border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1440px] w-11/12 mx-auto">
                   <div className="text-center max-w-2xl mx-auto mb-12">
                     <p className="text-xs font-bold text-secondary uppercase tracking-widest mb-2">
                       {content.subtitle || 'Our Blogs'}
@@ -690,7 +690,7 @@ export default function Home() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {(content.items || []).map((blog, idx) => (
-                      <div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col sm:flex-row hover:shadow-md transition-shadow">
+                      <div key={idx} className="luxury-card bg-white !p-0 overflow-hidden flex flex-col sm:flex-row">
                         <div className="sm:w-1/3 bg-gray-100 h-40 sm:h-auto">
                           <img 
                             src={blog.image ? getAssetUrl(blog.image) : '/hero-bg.png'} 

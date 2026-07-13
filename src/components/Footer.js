@@ -53,7 +53,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-accent text-gray-300 pt-12 pb-6 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div className="max-w-[1440px] w-11/12 mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         {/* About */}
         <div className="space-y-4">
           <h3 className="text-white font-bold text-lg">{companyName}</h3>
@@ -144,7 +144,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+      <div className="max-w-[1440px] w-11/12 mx-auto border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
         <p>&copy; {new Date().getFullYear()} {companyName}. All rights reserved.</p>
       </div>
     </footer>

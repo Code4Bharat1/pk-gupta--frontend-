@@ -28,7 +28,7 @@ export default function BlogsPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
+        <div className="max-w-[1440px] w-11/12 mx-auto space-y-8 animate-fade-in">
           {/* Back Navigation */}
           <Link href="/" className="inline-flex items-center space-x-1 text-xs font-bold text-gray-500 hover:text-primary transition-colors cursor-pointer">
             <ChevronLeft className="w-4 h-4" />
@@ -56,7 +56,7 @@ export default function BlogsPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogs.map((blog, idx) => (
-                <article key={idx} className="bg-white rounded-xl shadow-sm border border-gray-150 overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+                <article key={idx} className="luxury-card bg-white !p-0 overflow-hidden flex flex-col justify-between">
                   <div className="cursor-pointer" onClick={() => setSelectedBlog(blog)}>
                     <div className="h-48 bg-gray-100 relative">
                       <img 

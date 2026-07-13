@@ -78,12 +78,12 @@ function CarsContent() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 flex flex-col">
+    <div className="max-w-[1440px] w-11/12 mx-auto py-10 flex-1 flex flex-col">
       <h1 className="text-3xl font-extrabold text-accent mb-8">Browse Our Premium Fleet</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 flex-1">
         {/* Filters Sidebar */}
-        <div className="lg:col-span-1 bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-fit space-y-6">
+        <div className="lg:col-span-1 luxury-card bg-white h-fit space-y-6">
           <div className="flex items-center space-x-2 text-accent border-b border-gray-100 pb-3">
             <SlidersHorizontal className="w-4 h-4 text-primary" />
             <h2 className="font-bold text-base">Search Filters</h2>
@@ -100,7 +100,7 @@ function CarsContent() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="e.g. Tesla, Civic"
-                  className="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                  className="w-full pl-9 pr-3 py-2 bg-gray-50 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-semibold shadow-sm"
                 />
               </div>
             </div>
@@ -111,7 +111,7 @@ function CarsContent() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                className="w-full px-3 py-2 bg-gray-50 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-semibold shadow-sm"
               >
                 <option value="">All Categories</option>
                 <option value="SUV">SUV</option>
@@ -130,14 +130,14 @@ function CarsContent() {
                   placeholder="Min"
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                  className="w-full px-3 py-2 bg-gray-50 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-semibold shadow-sm"
                 />
                 <input
                   type="number"
                   placeholder="Max"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-primary text-accent"
+                  className="w-full px-3 py-2 bg-gray-50 rounded-lg text-xs focus:outline-none focus:border-primary text-accent font-semibold shadow-sm"
                 />
               </div>
             </div>
@@ -180,7 +180,7 @@ function CarsContent() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               {cars.map((car) => (
-                <div key={car._id} className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-all">
+                <div key={car._id} className="luxury-card bg-white !p-0 overflow-hidden flex flex-col justify-between">
                   <div className="relative h-48 bg-gray-100">
                     <img
                       src={car.images[0] ? getAssetUrl(car.images[0]) : '/hero-bg.png'}

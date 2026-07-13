@@ -59,7 +59,7 @@ export default function ServicesPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
+        <div className="max-w-[1440px] w-11/12 mx-auto space-y-8 animate-fade-in">
           {/* Navigation Back */}
           <Link href="/" className="inline-flex items-center space-x-1 text-xs font-bold text-gray-500 hover:text-primary transition-colors cursor-pointer">
             <ChevronLeft className="w-4 h-4" />
@@ -89,7 +89,7 @@ export default function ServicesPage() {
               {items.map((serv, idx) => (
                 <div 
                   key={idx} 
-                  className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200/60 hover:shadow-md hover:border-primary/30 transition-all duration-300 flex flex-col items-center text-center space-y-4"
+                  className="luxury-card bg-white flex flex-col items-center text-center space-y-4"
                 >
                   <div className="w-14 h-14 bg-primary/5 text-primary rounded-xl flex items-center justify-center shadow-inner">
                     {renderServiceIcon(serv.icon)}

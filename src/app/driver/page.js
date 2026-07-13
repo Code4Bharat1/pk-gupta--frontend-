@@ -156,7 +156,7 @@ export default function DriverDashboard() {
     <>
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 grid grid-cols-1 lg:grid-cols-4 gap-8 bg-gray-50/50">
+      <main className="max-w-[1440px] w-11/12 mx-auto py-10 flex-1 grid grid-cols-1 lg:grid-cols-4 gap-8 bg-gray-50/50">
         
         {/* Left Column: Driver Info & Quick Controls */}
         <div className="lg:col-span-1 space-y-6">
@@ -291,7 +291,7 @@ export default function DriverDashboard() {
                     </h3>
 
                     {activeTrips.length === 0 ? (
-                      <p className="text-xs text-gray-400 italic bg-white p-6 rounded-2xl border border-gray-100 text-center shadow-sm">
+                      <p className="text-xs text-gray-400 italic bg-white luxury-card text-center">
                         No active or upcoming duties assigned.
                       </p>
                     ) : (
@@ -299,7 +299,7 @@ export default function DriverDashboard() {
                         {activeTrips.map((trip) => {
                           const isCar = trip.bookingType === 'car';
                           return (
-                            <div key={trip._id} className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden flex flex-col md:flex-row justify-between gap-6 hover:shadow-md transition-shadow">
+                            <div key={trip._id} className="bg-white luxury-card relative overflow-hidden flex flex-col md:flex-row justify-between gap-6">
                               
                               <div className="absolute top-0 left-0 w-2.5 h-full bg-primary"></div>
                               
@@ -381,7 +381,7 @@ export default function DriverDashboard() {
                         No previous duties logged.
                       </p>
                     ) : (
-                      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-4">
+                      <div className="bg-white luxury-card overflow-hidden !p-4">
                         <div className="overflow-x-auto">
                           <table className="w-full text-left text-xs border-collapse">
                             <thead>

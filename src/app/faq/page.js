@@ -54,7 +54,7 @@ export default function FAQPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+        <div className="max-w-[1440px] w-11/12 mx-auto space-y-8 animate-fade-in">
           {/* Navigation Back */}
           <Link href="/" className="inline-flex items-center space-x-1 text-xs font-bold text-gray-500 hover:text-primary transition-colors cursor-pointer">
             <ChevronLeft className="w-4 h-4" />
@@ -82,7 +82,7 @@ export default function FAQPage() {
               placeholder="Search for answers..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm text-accent transition-all font-semibold"
+              className="w-full px-4 py-3 bg-white rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm text-accent transition-all font-semibold"
             />
           </div>
 
@@ -91,7 +91,7 @@ export default function FAQPage() {
               <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
             </div>
           ) : filteredQuestions.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-2xl border border-gray-150 p-8 shadow-sm">
+            <div className="text-center py-16 luxury-card bg-white flex flex-col items-center justify-center p-8">
               <HelpCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
               <p className="text-sm text-gray-500 font-semibold">No answers match your query. Try searching for other terms.</p>
             </div>
@@ -102,7 +102,7 @@ export default function FAQPage() {
                 return (
                   <div 
                     key={index} 
-                    className="bg-white rounded-2xl border border-gray-200 shadow-xs overflow-hidden hover:border-primary/30 transition-all"
+                    className="luxury-card bg-white !p-0 overflow-hidden"
                   >
                     <button
                       onClick={() => toggleAccordion(index)}
@@ -127,7 +127,7 @@ export default function FAQPage() {
           )}
 
           {/* Bottom Help Card */}
-          <div className="bg-gradient-to-r from-primary to-blue-700 text-white rounded-2xl p-6 sm:p-8 shadow-md text-center space-y-4">
+          <div className="bg-gradient-to-r from-accent to-black text-white rounded-2xl p-6 sm:p-8 shadow-md text-center space-y-4">
             <MessageSquare className="w-10 h-10 mx-auto text-amber-300" />
             <h3 className="text-lg sm:text-xl font-extrabold">Still have questions?</h3>
             <p className="text-xs sm:text-sm text-blue-100 max-w-md mx-auto leading-relaxed">

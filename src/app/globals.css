@@ -23,8 +23,17 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Synonym', sans-serif;
   min-height: 100vh;
+}
+
+/* Typography hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Amulya', sans-serif !important;
+}
+
+p, button, a, nav, form, label, input, select, textarea, span {
+  font-family: 'Synonym', sans-serif !important;
 }
 
 /* Custom design classes */
@@ -39,3 +48,17 @@ body {
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* Global Card Design - inspired by reference card layout (no border, soft shadow, hover transition) */
+.luxury-card {
+  border-radius: 1rem; /* rounded-2xl (16px) for softer rounded corners */
+  padding: 1.5rem; /* p-6 */
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+}
+
